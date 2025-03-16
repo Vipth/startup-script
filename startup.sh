@@ -1,5 +1,7 @@
 sudo apt update && sudo apt upgrade
 
+## Install Docker
+
 # Run the following command to uninstall all conflicting packages:
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
@@ -19,3 +21,10 @@ echo \
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+## Enable SSH
+sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+ufw enable
+ufw allow ssh
+ufw reload
+sudo systemctl restart ssh
