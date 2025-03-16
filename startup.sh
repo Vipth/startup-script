@@ -26,6 +26,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ufw enable
 ufw allow ssh
 ufw reload
+
+## Allow Login as Root
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo systemctl restart ssh
 
