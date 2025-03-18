@@ -1,3 +1,5 @@
+# !! This is only tested on Ubuntu !!
+
 # Quick Links
 ### Startup Script
 My startup script will update and upgrade your packages, install docker, open the ssh port with ufw, and allow ssh as root.
