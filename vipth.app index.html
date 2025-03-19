@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vipth's Scripts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
             background-color: #1e1e1e;
@@ -11,6 +12,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            position: relative;
         }
         h1 {
             color: #4A90E2;
@@ -70,9 +72,33 @@
             font-family: monospace;
             word-wrap: break-word;
         }
+        .icons {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .icon-link {
+            color: #ffffff;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .icon-link:hover {
+            color: #4A90E2;
+        }
     </style>
 </head>
 <body>
+
+    <div class="icons">
+        <a href="https://github.com/vipth" target="_blank" class="icon-link" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="icon-link" title="Copy Discord Username" onclick="copyDiscord()">
+            <i class="fab fa-discord"></i>
+        </a>
+    </div>
 
     <h1>Vipth's Scripts</h1>
     <p>These scripts help automate the installation and updates for my home server.</p>
@@ -126,6 +152,14 @@
                     button.textContent = "Copy Command";
                     button.style.background = "#4A90E2";
                 }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+
+        function copyDiscord() {
+            navigator.clipboard.writeText("Vipth").then(() => {
+                null;
             }).catch(err => {
                 console.error("Failed to copy text: ", err);
             });
