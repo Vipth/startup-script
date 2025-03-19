@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vipth's Scripts</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4A90E2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #252525;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(74, 144, 226, 0.3);
+        }
+        .script-box {
+            background: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .script-title {
+            color: #4A90E2;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+        .script-title:hover {
+            text-decoration: underline;
+        }
+        .copy-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #357ABD;
+        }
+        .command {
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vipth's Script Installer</h1>
+    <p>These scripts help automate the installation and updates for my home server.</p>
+
+    <div class="container">
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/jumpstart">Jumpstart</a></h2>
+            <p>Runs my essential commands for fresh Ubuntu installs.</p>
+            <div class="command" id="jumpstart-cmd">wget -qO- vipth.app/jumpstart | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard('jumpstart-cmd', this)">Copy Command</button>
+        </div>
+
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/updatecrafty">Update Crafty</a></h2>
+            <p>Updates Crafty, a Minecraft server management tool.</p>
+            <div class="command" id="updatecrafty-cmd">wget -qO- vipth.app/updatecrafty | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard('updatecrafty-cmd', this)">Copy Command</button>
+        </div>
+
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/getdocker">Get Docker</a></h2>
+            <p>Installs Docker on your system.</p>
+            <div class="command" id="getdocker-cmd">wget -qO- vipth.app/getdocker | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard('getdocker-cmd', this)">Copy Command</button>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(id, button) {
+            var text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = "Copied!";
+                button.style.background = "#357ABD";
+                setTimeout(() => {
+                    button.textContent = "Copy Command";
+                    button.style.background = "#4A90E2";
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+    </script>
+
+</body>
+</html>
