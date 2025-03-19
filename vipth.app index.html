@@ -15,6 +15,18 @@
         h1 {
             color: #4A90E2;
         }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -28,6 +40,7 @@
             padding: 15px;
             margin: 10px 0;
             border-radius: 8px;
+            display: block;
         }
         .script-title {
             color: #4A90E2;
@@ -61,31 +74,34 @@
 </head>
 <body>
 
-    <h1>Vipth's Script Installer</h1>
+    <h1>Vipth's Scripts</h1>
     <p>These scripts help automate the installation and updates for my home server.</p>
 
-    <div class="container">
-        <div class="script-box">
-            <h2><a class="script-title" href="https://vipth.app/jumpstart">Jumpstart</a></h2>
+    <div class="search-box">
+        <input type="text" class="search-input" id="search" placeholder="Search scripts..." onkeyup="filterScripts()">
+    </div>
+
+    <div class="container" id="scripts-container">
+        <div class="script-box" data-title="jumpstart">
+            <h2><a class="script-title" href="https://vipth.app/jumpstart" target="_blank">Jumpstart</a></h2>
             <p>Runs my essential commands for fresh Ubuntu installs.</p>
             <div class="command" id="jumpstart-cmd">wget -qO- vipth.app/jumpstart | sudo bash</div>
             <button class="copy-btn" onclick="copyToClipboard('jumpstart-cmd', this)">Copy Command</button>
         </div>
 
-        <div class="script-box">
-            <h2><a class="script-title" href="https://vipth.app/updatecrafty">Update Crafty</a></h2>
+        <div class="script-box" data-title="update crafty">
+            <h2><a class="script-title" href="https://vipth.app/updatecrafty" target="_blank">Update Crafty</a></h2>
             <p>Updates Crafty, a Minecraft server management tool.</p>
             <div class="command" id="updatecrafty-cmd">wget -qO- vipth.app/updatecrafty | sudo bash</div>
             <button class="copy-btn" onclick="copyToClipboard('updatecrafty-cmd', this)">Copy Command</button>
         </div>
 
-        <div class="script-box">
-            <h2><a class="script-title" href="https://vipth.app/getdocker">Get Docker</a></h2>
+        <div class="script-box" data-title="get docker">
+            <h2><a class="script-title" href="https://vipth.app/getdocker" target="_blank">Get Docker</a></h2>
             <p>Installs Docker on your system.</p>
             <div class="command" id="getdocker-cmd">wget -qO- vipth.app/getdocker | sudo bash</div>
             <button class="copy-btn" onclick="copyToClipboard('getdocker-cmd', this)">Copy Command</button>
         </div>
-    </div>
 
     <script>
         function copyToClipboard(id, button) {
@@ -99,6 +115,20 @@
                 }, 2000);
             }).catch(err => {
                 console.error("Failed to copy text: ", err);
+            });
+        }
+
+        function filterScripts() {
+            let input = document.getElementById('search').value.toLowerCase();
+            let scriptBoxes = document.querySelectorAll('.script-box');
+
+            scriptBoxes.forEach(box => {
+                let title = box.getAttribute('data-title');
+                if (title.includes(input) || input === "") {
+                    box.style.display = "block";
+                } else {
+                    box.style.display = "none";
+                }
             });
         }
     </script>
