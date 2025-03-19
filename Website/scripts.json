@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Jumpstart",
+        "url": "https://vipth.app/jumpstart",
+        "description": "Runs my essential commands for fresh installs.",
+        "command": "wget -qO- vipth.app/jumpstart | sudo bash",
+        "os": ["Ubuntu"]
+    },
+    {
+        "name": "Update Crafty",
+        "url": "https://vipth.app/updatecrafty",
+        "description": "Updates Crafty, a Minecraft server management tool.",
+        "command": "wget -qO- vipth.app/updatecrafty | sudo bash",
+        "os": ["Docker"]
+    },
+    {
+        "name": "Get Docker",
+        "url": "https://vipth.app/getdocker",
+        "description": "Installs Docker on your system.",
+        "command": "wget -qO- vipth.app/getdocker | sudo bash",
+        "os": ["Ubuntu"]
+    }
+]

@@ -1,0 +1,112 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+h1 {
+    color: #4A90E2;
+}
+.search-box {
+    margin-bottom: 20px;
+}
+.search-input {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #252525;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(74, 144, 226, 0.3);
+}
+.script-box {
+position: relative; /* Needed for absolute positioning inside */
+background: #333;
+padding: 15px;
+margin: 10px 0;
+border-radius: 8px;
+display: block;
+}
+.script-title {
+    color: #4A90E2;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+.script-title:hover {
+    text-decoration: underline;
+}
+.copy-btn {
+    background: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.copy-btn:hover {
+    background: #0080FF;
+}
+.command {
+    background: #000;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    word-wrap: break-word;
+}
+.icons {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    gap: 10px;
+}
+.icon-link {
+    color: #ffffff;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+.icon-link:hover {
+    color: #4A90E2;
+}
+.os-label-container {
+position: absolute;
+top: 10px;
+right: 10px;
+display: flex;
+gap: 5px;
+}
+.os-label {
+    background: #4A90E2;
+    color: white;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.filter-select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: #252525;
+    color: white;
+}
+.search-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
