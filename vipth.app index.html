@@ -61,7 +61,7 @@
             transition: background 0.3s;
         }
         .copy-btn:hover {
-            background: #357ABD;
+            background: #0080FF;
         }
         .command {
             background: #000;
@@ -82,33 +82,46 @@
     </div>
 
     <div class="container" id="scripts-container">
-        <div class="script-box" data-title="jumpstart">
-            <h2><a class="script-title" href="https://vipth.app/jumpstart" target="_blank">Jumpstart</a></h2>
+
+        <!-- TEMPLATE FOR NEW SCRIPTS -->
+        <!-- 
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/YOUR_SCRIPT_NAME">Your Script Name</a></h2>
+            <p>Description of what this script does.</p>
+            <div class="command">wget -qO- vipth.app/YOUR_SCRIPT_NAME | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard(this)">Copy Command</button>
+        </div>
+        -->
+
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/jumpstart">Jumpstart</a></h2>
             <p>Runs my essential commands for fresh Ubuntu installs.</p>
-            <div class="command" id="jumpstart-cmd">wget -qO- vipth.app/jumpstart | sudo bash</div>
-            <button class="copy-btn" onclick="copyToClipboard('jumpstart-cmd', this)">Copy Command</button>
+            <div class="command">wget -qO- vipth.app/jumpstart | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard(this)">Copy Command</button>
         </div>
 
-        <div class="script-box" data-title="update crafty">
-            <h2><a class="script-title" href="https://vipth.app/updatecrafty" target="_blank">Update Crafty</a></h2>
-            <p>Updates Crafty, a Minecraft server management tool.</p>
-            <div class="command" id="updatecrafty-cmd">wget -qO- vipth.app/updatecrafty | sudo bash</div>
-            <button class="copy-btn" onclick="copyToClipboard('updatecrafty-cmd', this)">Copy Command</button>
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/updatecrafty">Update Crafty</a></h2>
+            <p>Updates Crafty, a Minecraft server management tool. (Docker)</p>
+            <div class="command">wget -qO- vipth.app/updatecrafty | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard(this)">Copy Command</button>
         </div>
 
-        <div class="script-box" data-title="get docker">
-            <h2><a class="script-title" href="https://vipth.app/getdocker" target="_blank">Get Docker</a></h2>
-            <p>Installs Docker on your system.</p>
-            <div class="command" id="getdocker-cmd">wget -qO- vipth.app/getdocker | sudo bash</div>
-            <button class="copy-btn" onclick="copyToClipboard('getdocker-cmd', this)">Copy Command</button>
+        <div class="script-box">
+            <h2><a class="script-title" href="https://vipth.app/getdocker">Get Docker</a></h2>
+            <p>Installs Docker on your (Ubuntu) system.</p>
+            <div class="command">wget -qO- vipth.app/getdocker | sudo bash</div>
+            <button class="copy-btn" onclick="copyToClipboard(this)">Copy Command</button>
         </div>
+
+    </div>
 
     <script>
-        function copyToClipboard(id, button) {
-            var text = document.getElementById(id).innerText;
+        function copyToClipboard(button) {
+            var text = button.previousElementSibling.innerText;
             navigator.clipboard.writeText(text).then(() => {
                 button.textContent = "Copied!";
-                button.style.background = "#357ABD";
+                button.style.background = "#0080FF";
                 setTimeout(() => {
                     button.textContent = "Copy Command";
                     button.style.background = "#4A90E2";
@@ -123,8 +136,10 @@
             let scriptBoxes = document.querySelectorAll('.script-box');
 
             scriptBoxes.forEach(box => {
-                let title = box.getAttribute('data-title');
-                if (title.includes(input) || input === "") {
+                let title = box.querySelector('.script-title').innerText.toLowerCase();
+                let command = box.querySelector('.command').innerText.toLowerCase();
+                
+                if (title.includes(input) || command.includes(input) || input === "") {
                     box.style.display = "block";
                 } else {
                     box.style.display = "none";
