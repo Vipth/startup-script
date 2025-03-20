@@ -81,11 +81,11 @@ display: block;
     color: #4A90E2;
 }
 .os-label-container {
-position: absolute;
-top: 10px;
-right: 10px;
-display: flex;
-gap: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
 }
 .os-label {
     background: #4A90E2;
