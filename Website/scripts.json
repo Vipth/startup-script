@@ -19,5 +19,12 @@
         "description": "Installs Docker on your system.",
         "command": "wget -qO- vipth.app/getdocker | sudo bash",
         "os": ["Ubuntu"]
+    },
+    {
+        "name": "SSH as Root",
+        "url": "https://vipth.app/rootssh",
+        "description": "Allows you to SSH into your system as root.",
+        "command": "wget -qO- vipth.app/rootssh | sudo bash",
+        "os": ["Ubuntu"]
     }
 ]

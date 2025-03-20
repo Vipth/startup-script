@@ -1,0 +1,1 @@
+scp -r C:\Users\Vipth\Desktop\Projects\startup-script\Website\* root@192.168.68.83:/var/www/vipthapp

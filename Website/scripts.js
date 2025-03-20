@@ -78,4 +78,12 @@ function copyToClipboard(button) {
     });
 }
 
+function copyDiscord() {
+    navigator.clipboard.writeText("Vipth").then(() => {
+        null;
+    }).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
+}
+
 loadScripts(); // Call function on page load
