@@ -1,6 +1,7 @@
 async function loadScripts() {
     try {
-        let response = await fetch("scripts.json"); // Fetch JSON file
+        let response = await fetch("scripts.json?t=" + new Date().getTime()); // Cache Buster
+
         let scripts = await response.json();
         let container = document.getElementById("scripts-container");
         container.innerHTML = ""; // Clear existing content
@@ -78,12 +79,11 @@ function copyToClipboard(button) {
     });
 }
 
-function copyDiscord() {
-    navigator.clipboard.writeText("Vipth").then(() => {
-        null;
-    }).catch(err => {
-        console.error("Failed to copy text: ", err);
-    });
+function copyDiscord(event) {
+    event.preventDefault(); // Prevents page from reloading (important for <a> tags)
+    
+    navigator.clipboard.writeText("Vipth")
+        .catch(err => console.error("Clipboard copy failed: ", err));
 }
 
 loadScripts(); // Call function on page load

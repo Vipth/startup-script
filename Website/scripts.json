@@ -16,7 +16,7 @@
     {
         "name": "Get Docker",
         "url": "https://vipth.app/getdocker",
-        "description": "Installs Docker on your system.",
+        "description": "Installs Docker on your system. Directly from https://docs.docker.com/engine/install/ubuntu/",
         "command": "wget -qO- vipth.app/getdocker | sudo bash",
         "os": ["Ubuntu"]
     },
