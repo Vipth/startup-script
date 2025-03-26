@@ -4,7 +4,8 @@
         "url": "https://vipth.app/jumpstart",
         "description": "Runs my essential commands for fresh installs.",
         "command": "wget -qO- vipth.app/jumpstart | sudo bash",
-        "os": ["Ubuntu"]
+        "os": ["Ubuntu"],
+        "info": "jumpstart.html"
     },
     {
         "name": "Update Crafty",

@@ -66,17 +66,21 @@ h1 {
     word-wrap: break-word;
 }
 .icons {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+    position: fixed;
+    top: 15px;  /* Ensures the same top spacing on all pages */
+    left: 15px; /* Ensures exact alignment from the left */
     display: flex;
-    gap: 10px;
+    align-items: center; /* Ensures vertical alignment */
+    gap: 10px;  /* Consistent spacing between icons */
+    z-index: 100;
 }
+
 .icon-link {
     color: #ffffff;
     font-size: 24px;
     transition: color 0.3s;
 }
+
 .icon-link:hover {
     color: #4A90E2;
 }
@@ -109,4 +113,29 @@ h1 {
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+}
+.info-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 27px; /* Square size */
+    height: 27px;
+    background: #4A90E2;
+    color: #ffffff;
+    border-radius: 6px; /* Slightly rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.info-button i {
+    font-size: 16px; /* Adjusted for perfect centering */
+    line-height: 1;
+    position: relative;
+    justify-content: center;
+}
+.info-button:hover {
+    background: #0080FF;
 }

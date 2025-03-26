@@ -1,7 +1,6 @@
-async function loadScripts() {
+window.loadScripts = async function () {
     try {
         let response = await fetch("scripts.json?t=" + new Date().getTime()); // Cache Buster
-
         let scripts = await response.json();
         let container = document.getElementById("scripts-container");
         container.innerHTML = ""; // Clear existing content
@@ -29,43 +28,30 @@ async function loadScripts() {
                 <button class="copy-btn" onclick="copyToClipboard(this)">Copy Command</button>
             `;
 
-            // Append OS labels to the script box
+            // Append OS labels
             scriptBox.insertBefore(osLabelContainer, scriptBox.firstChild);
+
+            // Create Info Button (Top-Left Corner) ONLY if "info" exists
+            if (script.info) {
+                let infoButton = document.createElement("a");
+                infoButton.href = script.info;
+                infoButton.classList.add("info-button");
+                infoButton.innerHTML = '<i class="fa-solid fa-info"></i>'; // FontAwesome icon
+                infoButton.title = "More Info";
+
+                scriptBox.insertBefore(infoButton, scriptBox.firstChild); // Insert at top-left
+            }
+
             container.appendChild(scriptBox);
         });
 
-        filterScripts(); // Apply filter after loading
+        window.filterScripts(); // Apply filter after loading
     } catch (error) {
         console.error("Error loading scripts:", error);
     }
-}
+};
 
-function filterScripts() {
-    let input = document.getElementById('search').value.toLowerCase().trim();
-    let osFilter = document.getElementById('os-filter').value.trim().toLowerCase();
-    let scriptBoxes = document.querySelectorAll('.script-box');
-
-    scriptBoxes.forEach(box => {
-        let title = box.querySelector('.script-title').innerText.toLowerCase();
-        let command = box.querySelector('.command').innerText.toLowerCase();
-        
-        // Get all OS labels inside the script box
-        let osLabels = Array.from(box.querySelectorAll('.os-label')).map(label => label.innerText.trim().toLowerCase());
-
-        console.log("OS Labels:", osLabels, "| Selected Filter:", osFilter); // Debugging output
-
-        let matchesSearch = title.includes(input) || command.includes(input) || input === "";
-        let matchesOS = osFilter === "all" || osLabels.includes(osFilter); // Check if any OS matches
-
-        if (matchesSearch && matchesOS) {
-            box.style.display = "block";
-        } else {
-            box.style.display = "none";
-        }
-    });
-}
-
-function copyToClipboard(button) {
+window.copyToClipboard = function(button) {
     let text = button.previousElementSibling.innerText;
     navigator.clipboard.writeText(text).then(() => {
         button.textContent = "Copied!";
@@ -77,13 +63,39 @@ function copyToClipboard(button) {
     }).catch(err => {
         console.error("Failed to copy text: ", err);
     });
-}
+};
 
-function copyDiscord(event) {
-    event.preventDefault(); // Prevents page from reloading (important for <a> tags)
-    
+window.copyDiscord = function(event) {
+    event.preventDefault(); // Prevents page from reloading
     navigator.clipboard.writeText("Vipth")
         .catch(err => console.error("Clipboard copy failed: ", err));
-}
+};
 
-loadScripts(); // Call function on page load
+window.filterScripts = function() {
+    let input = document.getElementById('search').value.toLowerCase().trim();
+    let osFilter = document.getElementById('os-filter').value.trim().toLowerCase();
+    let scriptBoxes = document.querySelectorAll('.script-box');
+
+    scriptBoxes.forEach(box => {
+        let title = box.querySelector('.script-title').innerText.toLowerCase();
+        let command = box.querySelector('.command').innerText.toLowerCase();
+        
+        let osLabels = Array.from(box.querySelectorAll('.os-label')).map(label => label.innerText.trim().toLowerCase());
+
+        console.log("OS Labels:", osLabels, "| Selected Filter:", osFilter);
+
+        let matchesSearch = title.includes(input) || command.includes(input) || input === "";
+        let matchesOS = osFilter === "all" || osLabels.includes(osFilter);
+
+        if (matchesSearch && matchesOS) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    });
+};
+
+// Ensure scripts load on page start
+window.onload = function() {
+    window.loadScripts();
+};

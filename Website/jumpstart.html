@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumpstart Script Breakdown</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            padding: 20px 20px;
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.8;
+        }
+        h1, h2 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+        }
+        .section {
+            background: #2b2b2b;
+            border-left: 4px solid #4A90E2;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.95em;
+            color: #e0e0e0;
+            margin-top: 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="icons">
+        <a href="https://vipth.app" class="icon-link" title="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="https://github.com/vipth" target="_blank" class="icon-link" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="icon-link" title="Copy Discord Username" onclick="copyDiscord(event)">
+            <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://forum.glint.zip/" target="_blank" class="icon-link" title="Glint Forum">
+            <i class="fas fa-comments"></i>
+        </a>
+    </div>
+    
+    
+    <h1>Jumpstart Script Breakdown</h1>
+    <p>This script automates the setup of a fresh Ubuntu server with Docker, SSH access, firewall settings, and more. Here's what each part of it does:</p>
+
+    <div class="section">
+        <h2>1. System Update & Upgrade</h2>
+        <p>Updates the package list and installs the latest security updates:</p>
+        <pre>sudo apt update && sudo apt upgrade -y</pre>
+    </div>
+
+    <div class="section">
+        <h2>2. Remove Conflicting Docker Packages</h2>
+        <p>Uninstalls any Docker-related packages that could interfere with a clean install:</p>
+        <pre>
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do 
+  sudo apt-get remove -y $pkg || true
+done
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Install Docker</h2>
+        <p>This part of the script installs Docker by:</p>
+        <p>Adding Docker’s GPG key, adding the official Docker repository, updating your system, and installing Docker Engine, the Docker CLI, and Compose plugins:</p>
+        <pre>
+    sudo apt-get install -y ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+    https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        </pre>
+    </div>
+    
+
+    <div class="section">
+        <h2>4. Enable UFW Firewall & SSH</h2>
+        <p>Turns on the firewall, allows SSH access, and reloads the rules:</p>
+        <pre>
+sudo ufw --force enable
+sudo ufw allow ssh
+sudo ufw reload
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>5. Enable Root Login via SSH</h2>
+        <p>Modifies SSH config to allow root login and restarts the SSH service:</p>
+        <pre>
+sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sudo sshd -t && sudo systemctl restart ssh
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>6. Reload Postfix (If Installed)</h2>
+        <p>Postfix is a mail server. If it’s installed, this reloads its config:</p>
+        <pre>
+if systemctl list-units --full --all | grep -q "postfix.service"; then
+  sudo systemctl reload postfix
+fi
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>7. Finished</h2>
+        <p>Prints a simple message when the script completes:</p>
+        <pre>echo "--Finished--"</pre>
+    </div>
+    <script>
+        function copyDiscord(event) {
+            event.preventDefault(); // Prevents page from reloading (important for <a> tags)
+            
+            navigator.clipboard.writeText("Vipth")
+                .catch(err => console.error("Clipboard copy failed: ", err));
+        }
+    </script>
+</body>
+</html>
